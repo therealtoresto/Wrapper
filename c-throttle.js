@@ -2,7 +2,7 @@
 
 // Function throttling, executed once per interval
 
-const throttle = (timeout, fn, ...args) => {
+const throttle = (timeout, f, ...args) => {
     let timer;
     let wait = false;
     let wrapped = null;
@@ -16,13 +16,15 @@ const throttle = (timeout, fn, ...args) => {
         if (!timer) {
             timer = setTimeout(throttled, timeout, ...par);
             wait = false;
-            return fn(...args.concat(par));
+            return f(...args.concat(par));
         } else {
             wait = true;
         }
-
-        return wrapped;
     };
+    
+    return wrapped;
+};
+
 
     // Usage
 
@@ -40,4 +42,3 @@ const throttle = (timeout, fn, ...args) => {
     setTimeout(() => {
         clearInterval(timer);
     }, 2000);
-}
