@@ -1,24 +1,20 @@
 'use strict';
 
-const wrap = fn => {
+const wrap = f => {
     let limit = 0;
     let counter = 0;
 
     const wrapper = (...args) => {
         if (limit && counter === limit) wrapper.cancel();
-        if (fn) {
-            const res = fn(...args);
+        if (f) {
+            const res = f(...args);
             counter++;
             return res;
         }
     };
-     wrapper.cancel = () => {
-         fn = null;
-         return wrapper;
-     };
 
      wrapper.cancel = () => {
-        fn = null;
+        f = null;
         return wrapper;
      };
 
@@ -48,7 +44,8 @@ f('1st');
 
 setTimeout(() => {
     f('2nd');
-    f('3rd');
     f.cancel();
+    f('3rd');
+//    f.cancel();
     f('4rd');
 }, 150);
