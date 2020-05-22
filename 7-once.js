@@ -2,10 +2,10 @@
 
 // Wraper will prevent calls > n
 
-const once = fn => (...args) => {
-    if (!fn) return;
-    const res = fn(...args);
-    fn = null;
+const once = f => (...args) => {
+    if (!f) return;
+    const res = f(...args);
+    f = null;
     return res;
 };
 
